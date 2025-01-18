@@ -1,22 +1,16 @@
 import sys
 
 def main():
-
     # Wait for user input
     while True:
         sys.stdout.write("$ ")
 
-        command = input().rstrip()
+        command = input()
 
-        # try:
-        #     command, int = command.split()
-        # except:
-        #     command = command
+        if command.split()[0] == 'exit' and command.split()[1] == '0':
+                sys.exit()
+        sys.stdout.write(f'{command}: command not found\n')
 
-        if command == 'exit 0':
-            sys.exit()
-        else:
-            print(f'{command}: command not found')
 
 
 if __name__ == "__main__":
