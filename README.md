@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [![progress-banner](https://backend.codecrafters.io/progress/shell/1c47114c-da1b-4ceb-9277-35515ffd0146)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a starting point for Python solutions to the
@@ -32,3 +33,7 @@ Note: This section is for stages 2 and beyond.
    `app/main.py`.
 1. Commit your changes and run `git push origin master` to submit your solution
    to CodeCrafters. Test output will be streamed to your terminal.
+=======
+# buildOwnShell
+Following Code Crafters 'Build your own shell'
+>>>>>>> 66be1065b7449da718841bdcac5315498d74285a
