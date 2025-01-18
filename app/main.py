@@ -11,7 +11,6 @@ def main():
 
         command = input()
 
-
         print(f'{command}: command not found')
 
 
