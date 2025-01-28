@@ -1,32 +1,40 @@
 import sys
+import os
 
 def main():
-    commands = ['exit', 'echo', 'type']
+    builtins = ['exit', 'echo', 'type']
     # Wait for user input
     while True:
         sys.stdout.write("$ ")
 
-        command = input()
+        argv = input().split()
 
-        if command.split()[0] == 'exit' and command.split()[1] == '0':
-                sys.exit()
+        if argv[0] == 'exit':
+                sys.exit(int(argv[1]))
 
-        if command.split()[0] == 'echo':
-             command = ' '.join(command.split()[1:])
-             sys.stdout.write(f'{command}\n')
-             continue
+        elif argv[0] == 'echo':
+            print(*argv[1:], file=sys.stdout)
         
-        if command.split()[0] == 'type':
-             if command.split()[1] in commands:
-                  sys.stdout.write(f'{command.split()[1]} is a shell builtin\n')
-                  continue
-             else:
-                sys.stdout.write(f'{command.split()[1]}: not found\n')
-                continue
+        elif argv[0] == 'type':
+            path_dirs = os.environ.get('PATH').split(':')
+            if argv[1] in builtins:
+                  print(f'{argv[1]} is a shell builtin')
+            elif path_dirs:
+                found = False
+                for dir in path_dirs:
+                    executable_path = os.path.join(dir, argv[1])
+                    if os.path.isfile(executable_path) and os.access(executable_path, os.X_OK):
+                        print(f'{argv[1]} is {executable_path}')
+                        found = True
+                        continue
+                if not found:
+                    print(f'{argv[1]}: not found')
+                         
+            else:
+                print(f'{argv[1]}: not found')
                   
-        if command.split()[0] not in commands:
-            sys.stdout.write(f'{command}: command not found\n')
-            continue
+        else:
+            print(f'{argv[0]}: command not found')
 
 
 
