@@ -30,17 +30,14 @@ def main():
 
         elif argv[0] == 'cd':
             if argv[1]:
-                try:
-                    if os.path.isdir(argv[1]):
-                        os.chdir(argv[1])
-                    else:
-                        print(f'cd: {argv[1]}: No such file or directory')
-                except FileNotFoundError:
+                if os.path.isdir(argv[1]):
+                    os.chdir(argv[1])
+                
+                elif argv[1] == '~':
+                    os.chdir(os.path.expanduser('~')) # Change to user's home directory
+
+                else:
                     print(f'cd: {argv[1]}: No such file or directory')
-                except PermissionError:
-                    print(f'cd: {argv[1]}: Permission denied')
-                except Exception as e:
-                    print(f'cd: {e}')
             else:
                 print(f'cd: missing operand')
 
