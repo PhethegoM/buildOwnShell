@@ -44,7 +44,7 @@ def main():
                 output, error = process.communicate()
 
                 if output:
-                    print(output)
+                    print(output.decode('utf-8').split('\n')[0])
 
                 if error:
                     print(error)
