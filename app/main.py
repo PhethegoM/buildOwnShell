@@ -4,7 +4,7 @@ import subprocess  # Runs external commands
 
 def main():
     # List of built-in commands
-    builtins = ['exit', 'echo', 'type', 'pwd']
+    builtins = ['exit', 'echo', 'type', 'pwd', 'cd']
     
     while True:
         # Display the shell prompt
@@ -27,6 +27,20 @@ def main():
         # If the command is 'pwd', print the current working directory
         elif argv[0] == 'pwd':
             print(os.getcwd()) 
+
+        elif argv[0] == 'cd':
+            if argv[1]:
+                try:
+                    if os.path.isdir(argv[1]) or os.path.isfile(argv[1]):
+                        os.chdir(argv[1])
+                except FileNotFoundError:
+                    print(f'cd: {argv[1]}: No such file or directory')
+                except PermissionError:
+                    print(f'cd: {argv[1]}: Permission denied')
+                except Exception as e:
+                    print(f'cd: {e}')
+            else:
+                print(f'cd: missing operand')
 
         # If the command is 'type', check if it's built-in or external
         elif argv[0] == 'type':
