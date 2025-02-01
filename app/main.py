@@ -1,6 +1,7 @@
 import sys  # Handles system functions (like exiting the shell)
 import os   # Interacts with the operating system (e.g., checking PATH)
 import subprocess  # Runs external commands
+import shlex  # Parses command strings into tokens(echo "hello world" -> ['echo', 'hello world'])
 
 def main():
     # List of built-in commands
@@ -11,7 +12,11 @@ def main():
         sys.stdout.write("$ ")
 
         # Read user input and split into a list
-        argv = input().split()
+        try:
+            argv = shlex.split(input(), posix=True)
+        except ValueError as e:
+            print(f'Syntax error: {e}')
+            continue
 
         # If the command is 'exit', terminate the shell
         if argv[0] == 'exit':
