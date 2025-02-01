@@ -17,7 +17,7 @@ def main():
             print(*argv[1:], file=sys.stdout)
         
         elif argv[0] == 'type':
-            path_dirs = os.environ.get('PATH', '').split(':')
+            path_dirs = os.environ.get('PATH').split(':')
 
             if argv[1] in builtins:
                   print(f'{argv[1]} is a shell builtin')
