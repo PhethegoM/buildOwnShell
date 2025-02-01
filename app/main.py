@@ -24,8 +24,9 @@ def main():
         elif argv[0] == 'echo':
             print(*argv[1:], file=sys.stdout)
 
+        # If the command is 'pwd', print the current working directory
         elif argv[0] == 'pwd':
-            print(os.getcwd())
+            print(os.getcwd()) 
 
         # If the command is 'type', check if it's built-in or external
         elif argv[0] == 'type':
