@@ -31,7 +31,7 @@ def main():
         elif argv[0] == 'cd':
             if argv[1]:
                 try:
-                    if os.path.exists(argv[1]) or os.path.isdir(argv[1]):
+                    if os.path.isdir(argv[1]):
                         os.chdir(argv[1])
                 except FileNotFoundError:
                     print(f'cd: {argv[1]}: No such file or directory')
