@@ -28,6 +28,7 @@ def main():
                     executable_path = os.path.join(dir, argv[1])
                     if os.path.isfile(executable_path) and os.access(executable_path, os.X_OK):
                         found = True
+                        break
         
                 if found:
                     print(f'{argv[1]} is {executable_path}')
