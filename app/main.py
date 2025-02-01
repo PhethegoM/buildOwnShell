@@ -13,7 +13,8 @@ def main():
 
         # Read user input and split into a list
         try:
-            argv = shlex.split(input(), posix=True)
+            # Parse the input string into a list of tokens to handle spaces and quotes
+            argv = shlex.split(input(), posix=True) # posix=True for POSIX mode (POSIX mode determines the splitting rules(like handling quotes)) 
         except ValueError as e:
             print(f'Syntax error: {e}')
             continue
