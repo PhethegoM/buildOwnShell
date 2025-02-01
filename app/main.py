@@ -45,10 +45,10 @@ def main():
                 output, error = process.communicate()
 
                 if output:
-                    print(output.strip()) # Print the output of the command
+                    print(output) # Print the output of the command
 
                 if error:
-                    print(error.strip())
+                    print(error)
             
             except FileNotFoundError:
                 print(f'{argv[0]}: command not found')
