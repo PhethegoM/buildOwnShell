@@ -44,7 +44,7 @@ def main():
                 output, error = process.communicate()
 
                 if output:
-                    print(output.decode('utf-8'))
+                    print(output)
 
                 if error:
                     print(error)
