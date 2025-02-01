@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 def main():
     builtins = ['exit', 'echo', 'type']
@@ -16,17 +17,22 @@ def main():
             print(*argv[1:], file=sys.stdout)
         
         elif argv[0] == 'type':
-            path_dirs = os.environ.get('PATH').split(':')
+            path_dirs = os.environ.get('PATH', '').split(':')
+
             if argv[1] in builtins:
                   print(f'{argv[1]} is a shell builtin')
-            elif path_dirs:
+            
+            elif path_dirs != ['']:
                 found = False
                 for dir in path_dirs:
                     executable_path = os.path.join(dir, argv[1])
                     if os.path.isfile(executable_path) and os.access(executable_path, os.X_OK):
-                        print(f'{argv[1]} is {executable_path}')
                         found = True
-                        continue
+                        break
+                
+                if found:
+                    print(f'{argv[1]} is {executable_path}')
+                
                 if not found:
                     print(f'{argv[1]}: not found')
                          
@@ -34,7 +40,22 @@ def main():
                 print(f'{argv[1]}: not found')
                   
         else:
-            print(f'{argv[0]}: command not found')
+            try:
+                process = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                output, error = process.communicate()
+
+                if output:
+                    print(output.strip()) # Print the output of the command
+
+                if error:
+                    print(error.strip())
+            
+            except FileNotFoundError:
+                print(f'{argv[0]}: command not found')
+            except PermissionError:
+                print(f'{argv[0]}: Permission denied')
+            except Exception as e:
+                print(f'Error: {e}')
 
 
 
