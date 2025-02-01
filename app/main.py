@@ -32,7 +32,10 @@ def main():
             if argv[1]:
                 try:
                     if os.path.exists(argv[1]):
-                        os.chdir(argv[1])
+                        try:
+                            os.chdir(argv[1])
+                        except PermissionError:
+                            print(f'cd: {argv[1]}: Permission denied')
                 except FileNotFoundError:
                     print(f'cd: {argv[1]}: No such file or directory')
                 except PermissionError:
