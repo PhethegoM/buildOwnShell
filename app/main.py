@@ -45,7 +45,7 @@ def main():
                 output, error = process.communicate()
 
                 if output:
-                    print(output.split()[0]) # Print the output of the command
+                    print(output.split()) # Print the output of the command
 
                 if error:
                     print(error)
