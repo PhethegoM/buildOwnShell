@@ -59,7 +59,7 @@ def main():
                                 else:
                                     # print(line, end=' ')
                                     fileToWrite.write(line + ' ')
-                            if '-1' not in options:
+                            if options is not None:
                                 print()
                             sys.stdout = sys.__stdout__
                 else:
