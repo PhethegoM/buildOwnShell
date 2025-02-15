@@ -46,7 +46,7 @@ def main():
                             for line in contents:
                                 fileToWrite.write(line)
                 else:
-                    print(f'ls: {argv[-1]}: No such file or directory')
+                    print(f'ls: {directory}: No such file or directory')
              
             elif argv[0] == 'echo':
                 text = ' '.join(argv[1:index])
