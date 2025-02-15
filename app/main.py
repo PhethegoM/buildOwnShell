@@ -30,6 +30,10 @@ def main():
             index = argv.index('>')
             output_file = argv[index + 1]
 
+            parent_dir = os.path.dirname(output_file)
+            if parent_dir and not os.path.exists(parent_dir):
+                os.makedirs(parent_dir)
+
             if argv[0] == 'ls':
                 if len(argv) > 1 and argv[1] != '>':
                     directory = argv[1]  # Directory to list
