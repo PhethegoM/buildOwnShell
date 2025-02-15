@@ -28,31 +28,27 @@ def main():
 
         elif '>' in argv:
             index = argv.index('>')
+            output_file = argv[index + 1]
+
             if argv[0] == 'ls':
-                if argv[index - 1] is not None:
-                    if os.path.isfile(argv[index - 1]) and os.access(argv[index - 1]):
-                        with open(argv[index - 1], 'r') as fileToRead:
-                            content = fileToRead.readlines()
-
-                        if os.path.isfile(argv[-1]) and os.access(argv[-1]):
-                            with open(argv[-1], 'w') as fileToWrite:
-                                for line in content:
-                                    fileToWrite.write(line)
-                        else:
-                            print(f'ls: {argv[-1]}: No such file or directory')
-                        
-                    else:
-                        print(f'ls: {argv[index - 1]}: No such file or directory')
+                if len(argv) > 1 and argv[1] != '>':
+                    directory = argv[1]  # Directory to list
                 else:
-                    print(f'ls: missing operand')
-
+                    directory = '.'  # Default to current directory
+                
+                if os.path.isdir(directory):
+                    contents = os.listdir(directory)
+                    with open(output_file, 'w') as fileToWrite:
+                            for line in contents:
+                                fileToWrite.write(line)
+                else:
+                    print(f'ls: {argv[-1]}: No such file or directory')
+             
             elif argv[0] == 'echo':
-                if argv[index - 1] is not None:
-                    if os.path.isfile(argv[index + 1]) and os.access(argv[index + 1]):
-                        with open(argv[index + 1], 'w') as file:
-                            file.write(' '.join(argv[1:index]))
-                    
-
+                text = ' '.join(argv[1:index])
+                with open(output_file, 'w') as file:
+                        file.write(text)
+                
         # If the command is 'echo', print the provided arguments
         elif argv[0] == 'echo':
             print(*argv[1:], file=sys.stdout)
