@@ -60,7 +60,7 @@ def main():
                                     fileToWrite.write(line + ' ')
                             # if '-1' not in options:
                             #     print()
-                            # sys.stdout = sys.__stdout__
+                            sys.stdout = sys.__stdout__
                 else:
                     print(f'ls: {directory}: No such file or directory')
              
