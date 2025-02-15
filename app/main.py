@@ -2,6 +2,7 @@ import sys  # Handles system functions (like exiting the shell)
 import os   # Interacts with the operating system (e.g., checking PATH)
 import subprocess  # Runs external commands
 import shlex  # Parses command strings into tokens(echo "hello world" -> ['echo', 'hello world'])
+import re # Regular expressions for pattern matching
 
 def main():
     # List of built-in commands
@@ -40,8 +41,8 @@ def main():
 
                 i = 1
                 while i < index:
-                    if argv[i].startswith('-'):
-                        options.append(argv[i])
+                    if re.match(r'^-', argv[i]): # Check if the argument is an option ( '^' means start of the string)
+                        options.append(argv[i][1:])
                     else:
                         directory = argv[i]
                     i += 1
@@ -51,10 +52,10 @@ def main():
 
                     with open(output_file, 'w') as fileToWrite:
                             sys.stdout = fileToWrite # Redirect stdout to file
-                            for line in contents:
-                                if '-1' in options:
-                                    # print(line)
-                                    fileToWrite.write(line + '\n')
+                            for i, line in enumerate(contents):
+                                if options is not None:
+                                    if i != options[0]:
+                                        fileToWrite.write(line + '\n')
                                 else:
                                     # print(line, end=' ')
                                     fileToWrite.write(line + ' ')
