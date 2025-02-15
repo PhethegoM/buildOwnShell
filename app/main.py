@@ -54,8 +54,10 @@ def main():
                             for line in contents:
                                 if '-1' in options:
                                     print(line)
+                                    fileToWrite.flush()
                                 else:
                                     print(line, end=' ')
+                                    fileToWrite.flush()
                             if '-1' not in options:
                                 print()
                             sys.stdout = sys.__stdout__
