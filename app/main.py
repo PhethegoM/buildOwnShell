@@ -58,8 +58,8 @@ def main():
                                 else:
                                     # print(line, end=' ')
                                     fileToWrite.write(line + ' ')
-                            # if '-1' not in options:
-                            #     print()
+                            if '-1' not in options:
+                                print()
                             sys.stdout = sys.__stdout__
                 else:
                     print(f'ls: {directory}: No such file or directory')
