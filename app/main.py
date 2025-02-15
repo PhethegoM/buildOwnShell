@@ -26,6 +26,33 @@ def main():
             else:
                 sys.exit() # Exits with status code 0 by default
 
+        elif '>' in argv:
+            index = argv.index('>')
+            if argv[0] == 'ls':
+                if argv[index - 1] is not None:
+                    if os.path.isfile(argv[index - 1]) and os.access(argv[index - 1]):
+                        with open(argv[index - 1], 'r') as fileToRead:
+                            content = fileToRead.readlines()
+
+                        if os.path.isfile(argv[-1]) and os.access(argv[-1]):
+                            with open(argv[-1], 'w') as fileToWrite:
+                                for line in content:
+                                    fileToWrite.write(line)
+                        else:
+                            print(f'ls: {argv[-1]}: No such file or directory')
+                        
+                    else:
+                        print(f'ls: {argv[index - 1]}: No such file or directory')
+                else:
+                    print(f'ls: missing operand')
+
+            elif argv[0] == 'echo':
+                if argv[index - 1] is not None:
+                    if os.path.isfile(argv[index + 1]) and os.access(argv[index + 1]):
+                        with open(argv[index + 1], 'w') as file:
+                            file.write(' '.join(argv[1:index]))
+                    
+
         # If the command is 'echo', print the provided arguments
         elif argv[0] == 'echo':
             print(*argv[1:], file=sys.stdout)
