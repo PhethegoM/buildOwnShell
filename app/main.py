@@ -35,16 +35,30 @@ def main():
                 os.makedirs(parent_dir)
 
             if argv[0] == 'ls':
-                if len(argv) > 1 and argv[1] != '>':
-                    directory = argv[1]  # Directory to list
-                else:
-                    directory = '.'  # Default to current directory
+                options = []
+                directory = '.'
+
+                i = 1
+                while i < index:
+                    if argv[i].startswith('-'):
+                        options.append(argv[i])
+                    else:
+                        directory = argv[i]
+                    i += 1
                 
                 if os.path.isdir(directory):
                     contents = os.listdir(directory)
+
                     with open(output_file, 'w') as fileToWrite:
+                            sys.stdout = fileToWrite # Redirect stdout to file
                             for line in contents:
-                                fileToWrite.write(line)
+                                if '-1' in options:
+                                    print(line)
+                                else:
+                                    print(line, end=' ')
+                            if '-1' not in options:
+                                print()
+                            sys.stdout = sys.__stdout__
                 else:
                     print(f'ls: {directory}: No such file or directory')
              
