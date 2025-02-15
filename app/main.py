@@ -53,10 +53,10 @@ def main():
                             sys.stdout = fileToWrite # Redirect stdout to file
                             for line in contents:
                                 if '-1' in options:
-                                    # print(line)
+                                    print(line)
                                     fileToWrite.write(line + '\n')
                                 else:
-                                    # print(line, end=' ')
+                                    print(line, end=' ')
                                     fileToWrite.write(line + ' ')
                             if '-1' not in options:
                                 print()
