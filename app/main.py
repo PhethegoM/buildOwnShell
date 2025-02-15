@@ -26,7 +26,7 @@ def main():
             else:
                 sys.exit() # Exits with status code 0 by default
 
-        elif '>' in argv:
+        elif '>' in argv or '1>' in argv:
             index = argv.index('>')
             output_file = argv[index + 1]
 
